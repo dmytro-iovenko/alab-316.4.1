@@ -10,8 +10,16 @@ const handleLoad = () => {
     // prevent default submit logic
     event.preventDefault();
     try {
-      usernameValidation(registrationForm.elements.username.value);
-      emailValidation(registrationForm.elements.email.value);
+      // Perform Username Validation
+      const username = registrationForm.elements.username.value;
+      usernameValidation(username);
+      // Perform Email Validation
+      const email = registrationForm.elements.email.value;
+      emailValidation(email);
+      // Perform Password Validation
+      const password = registrationForm.elements.password.value;
+      const passwordCheck = registrationForm.elements.passwordCheck.value;
+      passwordValidation(password, passwordCheck, username);
     } catch (err) {
       displayError(err.message);
       console.log(err);
@@ -51,6 +59,42 @@ const handleLoad = () => {
     //The email must not be from the domain "example.com"
     if (email.match(/example\.com$/i)) {
       throw new Error('The email must not be from the domain "example.com"');
+    }
+  }
+
+  // Registration Form - Password Validation:
+  function passwordValidation(password, passwordCheck, username) {
+    //Passwords must be at least 12 characters long.
+    if (password.length < 12) {
+      throw new Error("Passwords must be at least 12 characters long.");
+    }
+    //Passwords must have at least one uppercase and one lowercase letter.
+    if (!password.match(/[a-z].*?[A-Z]|[A-Z].*?[a-z]/)) {
+      throw new Error(
+        "Passwords must have at least one uppercase and one lowercase letter."
+      );
+    }
+    //Passwords must contain at least one number.
+    if (!password.match(/[0-9]/)) {
+      throw new Error("Passwords must contain at least one number.");
+    }
+    //Passwords must contain at least one special character.
+    if (!password.match(/\W/)) {
+      throw new Error("Passwords must contain at least one special character.");
+    }
+    //Passwords cannot contain the word "password" (uppercase, lowercase, or mixed).
+    if (password.match(/password/i)) {
+      throw new Error(
+        'Passwords cannot contain the word "password" (uppercase, lowercase, or mixed).'
+      );
+    }
+    //Passwords cannot contain the username.
+    if (password.match(new RegExp(username, "i"))) {
+        throw new Error("Passwords cannot contain the username.");
+    }
+    //Both passwords must match.
+    if (password !== passwordCheck) {
+      throw new Error("Both passwords must match.");
     }
   }
 
