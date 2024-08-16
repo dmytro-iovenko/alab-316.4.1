@@ -11,6 +11,7 @@ const handleLoad = () => {
     event.preventDefault();
     try {
       usernameValidation(registrationForm.elements.username.value);
+      emailValidation(registrationForm.elements.email.value);
     } catch (err) {
       displayError(err.message);
       console.log(err);
@@ -18,9 +19,7 @@ const handleLoad = () => {
   }
 
   // Registration Form - Username Validation:
-
   function usernameValidation(username) {
-    console.log(username);
     //The username cannot be blank.
     if (username === "") {
       throw new Error("The username cannot be blank.");
@@ -40,6 +39,18 @@ const handleLoad = () => {
       throw new Error(
         "The username cannot contain any special characters or whitespace."
       );
+    }
+  }
+
+  // Registration Form - Email Validation:
+  function emailValidation(email) {
+    //The email must be a valid email address.
+    if (!email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/)) {
+      throw new Error("The email must be a valid email address.");
+    }
+    //The email must not be from the domain "example.com"
+    if (email.match(/example\.com$/i)) {
+      throw new Error('The email must not be from the domain "example.com"');
     }
   }
 
