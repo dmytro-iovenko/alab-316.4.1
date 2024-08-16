@@ -20,6 +20,9 @@ const handleLoad = () => {
       const password = registrationForm.elements.password.value;
       const passwordCheck = registrationForm.elements.passwordCheck.value;
       passwordValidation(password, passwordCheck, username);
+      // Perform Terms and Conditions Validation
+      const terms = registrationForm.elements.terms;
+      termsValidation(terms);
     } catch (err) {
       displayError(err.message);
       console.log(err);
@@ -90,11 +93,19 @@ const handleLoad = () => {
     }
     //Passwords cannot contain the username.
     if (password.match(new RegExp(username, "i"))) {
-        throw new Error("Passwords cannot contain the username.");
+      throw new Error("Passwords cannot contain the username.");
     }
     //Both passwords must match.
     if (password !== passwordCheck) {
       throw new Error("Both passwords must match.");
+    }
+  }
+
+  // Registration Form - Terms and Conditions:
+  function termsValidation(checkbox) {
+    //The terms and conditions must be accepted.
+    if (!checkbox.checked) {
+      throw new Error("The terms and conditions must be accepted.");
     }
   }
 
