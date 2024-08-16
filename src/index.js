@@ -12,17 +12,17 @@ const handleLoad = () => {
     try {
       // Perform Username Validation
       const username = registrationForm.elements.username.value;
-      usernameValidation(username);
+      validateUsername(username);
       // Perform Email Validation
       const email = registrationForm.elements.email.value;
-      emailValidation(email);
+      validateEmail(email);
       // Perform Password Validation
       const password = registrationForm.elements.password.value;
       const passwordCheck = registrationForm.elements.passwordCheck.value;
-      passwordValidation(password, passwordCheck, username);
+      validatePassword(password, passwordCheck, username);
       // Perform Terms and Conditions Validation
       const terms = registrationForm.elements.terms;
-      termsValidation(terms);
+      validateTermsAndConditions(terms);
     } catch (err) {
       displayError(err.message);
       console.log(err);
@@ -30,7 +30,7 @@ const handleLoad = () => {
   }
 
   // Registration Form - Username Validation:
-  function usernameValidation(username) {
+  function validateUsername(username) {
     //The username cannot be blank.
     if (username === "") {
       throw new Error("The username cannot be blank.");
@@ -54,7 +54,7 @@ const handleLoad = () => {
   }
 
   // Registration Form - Email Validation:
-  function emailValidation(email) {
+  function validateEmail(email) {
     //The email must be a valid email address.
     if (!email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/)) {
       throw new Error("The email must be a valid email address.");
@@ -66,7 +66,7 @@ const handleLoad = () => {
   }
 
   // Registration Form - Password Validation:
-  function passwordValidation(password, passwordCheck, username) {
+  function validatePassword(password, passwordCheck, username) {
     //Passwords must be at least 12 characters long.
     if (password.length < 12) {
       throw new Error("Passwords must be at least 12 characters long.");
@@ -102,7 +102,7 @@ const handleLoad = () => {
   }
 
   // Registration Form - Terms and Conditions:
-  function termsValidation(checkbox) {
+  function validateTermsAndConditions(checkbox) {
     //The terms and conditions must be accepted.
     if (!checkbox.checked) {
       throw new Error("The terms and conditions must be accepted.");
