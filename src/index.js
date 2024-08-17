@@ -3,8 +3,10 @@ const handleLoad = () => {
   const registrationForm = document.getElementById("registration");
   const loginForm = document.getElementById("login");
   const storage = window.localStorage;
-  // use helper function to handle form submit
+  // handle Registration Form submission
   registrationForm.addEventListener("submit", handleRegistration);
+  // handle Login Form submission
+  loginForm.addEventListener("submit", handleLogin);
 
   /** HELPER FUNCTIONS */
   function handleRegistration(event) {
@@ -131,6 +133,16 @@ const handleLoad = () => {
     //The terms and conditions must be accepted.
     if (!checkbox.checked) {
       throw new Error("The terms and conditions must be accepted.");
+    }
+  }
+
+  function handleLogin(event) {
+    // prevent default submit logic
+    event.preventDefault();
+    try {
+    } catch (err) {
+      displayError(err.message);
+      console.log(err);
     }
   }
 
