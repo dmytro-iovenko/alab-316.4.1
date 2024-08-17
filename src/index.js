@@ -148,11 +148,16 @@ const handleLoad = () => {
       validatePassword(password, username);
 
       /** Login Form - Form Submission */
+      // If "Keep me logged in" is checked, modify the success message to indicate this
+      const persist = loginForm.elements.persist;
+      let message = "Login successful!";
+      if (persist.checked) {
+        message += "\nYou will be kept logged in.";
+      }
       // If all validation is successful, clear all form fields
       loginForm.reset();
       // and show a success message.
-      alert("You logged in!");
-
+      alert(message);
     } catch (err) {
       displayError(err.message);
       console.log(err);
