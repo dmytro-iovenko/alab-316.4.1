@@ -143,6 +143,9 @@ const handleLoad = () => {
       // Perform Username Validation
       const username = loginForm.elements.username.value;
       validateUsername(username);
+      // Perform Password Validation
+      const password = loginForm.elements.password.value;
+      validatePassword(password, username);
     } catch (err) {
       displayError(err.message);
       console.log(err);
@@ -160,6 +163,20 @@ const handleLoad = () => {
         throw new Error("That username does not exist.");
       }
       console.log("Login Form - Username Validation: OK");
+    }
+    /** Login Form - Password Validation */
+    function validatePassword(password, username) {
+      //The password cannot be blank.
+      if (password === "") {
+        throw new Error("The password cannot be blank.");
+      }
+      //The password must be correct (validate against localStorage).
+      const usernameLC = username.toLowerCase();
+      const passwordCheck = JSON.parse(storage.getItem(usernameLC)).password;
+      if (password !== passwordCheck) {
+        throw new Error("The password is incorrect.");
+      }
+      console.log("Login Form - Password Validation: OK");
     }
   }
 
