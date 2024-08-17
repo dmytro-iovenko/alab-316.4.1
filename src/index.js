@@ -71,6 +71,11 @@ const handleLoad = () => {
         "The username cannot contain any special characters or whitespace."
       );
     }
+    // Usernames must be unique ("that username is already taken" error)
+    const usernameLC = username.toLowerCase();
+    if (storage[usernameLC]) {
+      throw new Error("That username is already taken.");
+    }
   }
 
   // Registration Form - Email Validation:
