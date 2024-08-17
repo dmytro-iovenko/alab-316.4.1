@@ -146,6 +146,13 @@ const handleLoad = () => {
       // Perform Password Validation
       const password = loginForm.elements.password.value;
       validatePassword(password, username);
+
+      /** Login Form - Form Submission */
+      // If all validation is successful, clear all form fields
+      loginForm.reset();
+      // and show a success message.
+      alert("You logged in!");
+
     } catch (err) {
       displayError(err.message);
       console.log(err);
@@ -159,7 +166,7 @@ const handleLoad = () => {
       }
       // The username must exist (within localStorage)
       const usernameLC = username.toLowerCase();
-      if (!storage[usernameLC]) {
+      if (!storage.getItem(usernameLC)) {
         throw new Error("That username does not exist.");
       }
       console.log("Login Form - Username Validation: OK");
