@@ -2,6 +2,7 @@ const handleLoad = () => {
   const errorDisplay = document.getElementById("errorDisplay");
   const registrationForm = document.getElementById("registration");
   const loginForm = document.getElementById("login");
+  const storage = window.localStorage;
   // use helper function to handle form submit
   registrationForm.addEventListener("submit", validateRegistration);
 
@@ -23,6 +24,25 @@ const handleLoad = () => {
       // Perform Terms and Conditions Validation
       const terms = registrationForm.elements.terms;
       validateTermsAndConditions(terms);
+
+      /** Registration Form - Form Submission */
+      // Valid usernames should be converted to all lowercase before being stored.
+      const usernameLC = username.toLowerCase();
+      // Valid emails should be converted to all lowercase before being stored.
+      const emailLC = email.toLowerCase();
+      // If all validation is successful, store the username, email, and password using localStorage.
+      storage.setItem(
+        usernameLC,
+        JSON.stringify({
+          username: usernameLC,
+          email: emailLC,
+          password: password,
+        })
+      );
+      // Clear all form fields after successful submission
+      registrationForm.reset();
+      //  and show a success message.
+      alert("You succesfully registered!!!");
     } catch (err) {
       displayError(err.message);
       console.log(err);
