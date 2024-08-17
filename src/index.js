@@ -4,10 +4,10 @@ const handleLoad = () => {
   const loginForm = document.getElementById("login");
   const storage = window.localStorage;
   // use helper function to handle form submit
-  registrationForm.addEventListener("submit", validateRegistration);
+  registrationForm.addEventListener("submit", handleRegistration);
 
   /** HELPER FUNCTIONS */
-  function validateRegistration(event) {
+  function handleRegistration(event) {
     // prevent default submit logic
     event.preventDefault();
     try {
