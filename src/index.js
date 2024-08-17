@@ -73,7 +73,7 @@ const handleLoad = () => {
         "The username cannot contain any special characters or whitespace."
       );
     }
-    // Usernames must be unique ("that username is already taken" error)
+    // Username must be unique ("that username is already taken" error)
     const usernameLC = username.toLowerCase();
     if (storage[usernameLC]) {
       throw new Error("That username is already taken.");
@@ -140,9 +140,26 @@ const handleLoad = () => {
     // prevent default submit logic
     event.preventDefault();
     try {
+      // Perform Username Validation
+      const username = loginForm.elements.username.value;
+      validateUsername(username);
     } catch (err) {
       displayError(err.message);
       console.log(err);
+    }
+
+    /** Login Form - Username Validation */
+    function validateUsername(username) {
+      //The username cannot be blank.
+      if (username === "") {
+        throw new Error("The username cannot be blank.");
+      }
+      // The username must exist (within localStorage)
+      const usernameLC = username.toLowerCase();
+      if (!storage[usernameLC]) {
+        throw new Error("That username does not exist.");
+      }
+      console.log("Login Form - Username Validation: OK");
     }
   }
 
