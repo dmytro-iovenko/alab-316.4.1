@@ -75,7 +75,7 @@ const handleLoad = () => {
     }
     // Username must be unique ("that username is already taken" error)
     const usernameLC = username.toLowerCase();
-    if (storage[usernameLC]) {
+    if (storage.getItem(usernameLC)) {
       throw new Error("That username is already taken.");
     }
   }
